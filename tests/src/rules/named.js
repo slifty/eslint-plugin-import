@@ -136,6 +136,12 @@ ruleTester.run('named', rule, {
       settings: { 'import/ignore': ['common'] },
     }),
 
+    // issue #1753: support for named aggregate export pattern
+    test({
+      code: 'import { aggregate } from "./named-aggregate-export"',
+      parser: require.resolve('babel-eslint'),
+    }),
+
     // ignore CJS by default. always ignore ignore list
     test({ code: 'import {a, b, d} from "./common"' }),
     test({
@@ -286,9 +292,9 @@ ruleTester.run('named (export *)', rule, {
 context('TypeScript', function () {
   getTSParsers().forEach((parser) => {
     [
-      'typescript', 
-      'typescript-declare', 
-      'typescript-export-assign-namespace', 
+      'typescript',
+      'typescript-declare',
+      'typescript-export-assign-namespace',
       'typescript-export-assign-namespace-merged',
     ].forEach((source) => {
       ruleTester.run(`named`, rule, {
